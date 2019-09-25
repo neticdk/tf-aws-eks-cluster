@@ -86,3 +86,8 @@ variable "global_cluster_admin_role" {
   description = "Name of IAM role that will be added to the system:masters group"
   default     = "eks-global-cluster-admin"
 }
+
+variable "enabled_cluster_log_types" {
+  description = "EKS logs to send to CloudWatch"
+  default     = []
+}
