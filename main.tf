@@ -27,6 +27,8 @@ resource "aws_eks_cluster" "this" {
     aws_iam_role_policy_attachment.eks_cluster_AmazonEKSServicePolicy,
   ]
 
+  enabled_cluster_log_types = var.enabled_cluster_log_types
+
   lifecycle {
     prevent_destroy = true
   }
