@@ -101,6 +101,11 @@ resource "aws_iam_role_policy_attachment" "eks_workers_AmazonEC2ContainerRegistr
   role       = join("", aws_iam_role.workers.*.name)
 }
 
+resource "aws_iam_role_policy_attachment" "eks_workers_AmazonCWAgentServerPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+  role       = join("", aws_iam_role.workers.*.name)
+}
+
 resource "aws_iam_instance_profile" "workers" {
   name = "eks-workers-${var.name}"
   role = join("", aws_iam_role.workers.*.name)
