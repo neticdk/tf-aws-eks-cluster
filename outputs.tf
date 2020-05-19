@@ -59,3 +59,7 @@ output "instance_profile_name" {
   value       = join("", aws_iam_instance_profile.workers.*.name)
 }
 
+output "eks_cluster_oidc_url" {
+  description = "The OIDC url for the EKS Cluster"
+  value       = aws_eks_cluster.this.identity.0.oidc.0.issuer
+}
