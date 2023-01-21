@@ -75,7 +75,7 @@ variable "aws_profile_name" {
 // IAM
 variable "map_roles" {
   description = "Additional IAM roles to add to the aws-auth configmap. See examples/eks_test_fixture/variables.tf for example format."
-  type        = list(string)
+  type        = list(any)
   default     = []
 }
 
