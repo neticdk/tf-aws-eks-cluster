@@ -7,6 +7,6 @@
 
 locals {
   kubeconfig_filename = "work/kubeconfig.yaml"
-  map_roles           = join("", data.template_file.map_roles.*.rendered)
+  map_roles           = join("", data.template_file.map_roles[*].rendered)
 }
 

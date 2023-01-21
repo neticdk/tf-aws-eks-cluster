@@ -18,7 +18,7 @@ resource "aws_eks_cluster" "this" {
   version = var.cluster_version
 
   vpc_config {
-    security_group_ids = [join("", aws_security_group.this.*.id)]
+    security_group_ids = [join("", aws_security_group.this[*].id)]
     subnet_ids         = var.subnets
   }
 

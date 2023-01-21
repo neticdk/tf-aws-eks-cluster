@@ -11,7 +11,7 @@ data "template_file" "kubeconfig" {
   template = file("${path.module}/templates/kubeconfig.tpl")
 
   vars = {
-    server                     = join("", aws_eks_cluster.this.*.endpoint)
+    server                     = join("", aws_eks_cluster.this[*].endpoint)
     certificate_authority_data = aws_eks_cluster.this.certificate_authority[0].data
     cluster_name               = var.name
     aws_role = format(
@@ -24,7 +24,7 @@ data "template_file" "kubeconfig" {
 }
 
 resource "local_file" "kubeconfig" {
-  content  = join("", data.template_file.kubeconfig.*.rendered)
+  content  = join("", data.template_file.kubeconfig[*].rendered)
   filename = local.kubeconfig_filename
 
   depends_on = [aws_eks_cluster.this]

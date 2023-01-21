@@ -6,22 +6,22 @@
  */
 
 output "security_group_id" {
-  value = join("", aws_security_group.this.*.id)
+  value = join("", aws_security_group.this[*].id)
 }
 
 output "eks_cluster_id" {
   description = "The name of the cluster"
-  value       = join("", aws_eks_cluster.this.*.id)
+  value       = join("", aws_eks_cluster.this[*].id)
 }
 
 output "eks_cluster_arn" {
   description = "The Amazon Resource Name (ARN) of the cluster"
-  value       = join("", aws_eks_cluster.this.*.arn)
+  value       = join("", aws_eks_cluster.this[*].arn)
 }
 
 output "eks_cluster_endpoint" {
   description = "The endpoint for the Kubernetes API server"
-  value       = join("", aws_eks_cluster.this.*.endpoint)
+  value       = join("", aws_eks_cluster.this[*].endpoint)
 }
 
 output "eks_cluster_certificate_authority_data" {
@@ -31,12 +31,12 @@ output "eks_cluster_certificate_authority_data" {
 
 output "eks_cluster_version" {
   description = "The Kubernetes server version of the cluster"
-  value       = join("", aws_eks_cluster.this.*.version)
+  value       = join("", aws_eks_cluster.this[*].version)
 }
 
 output "kubeconfig" {
   description = "`kubeconfig` configuration to connect to the cluster using `kubectl`."
-  value       = join("", data.template_file.kubeconfig.*.rendered)
+  value       = join("", data.template_file.kubeconfig[*].rendered)
 }
 
 output "kubeconfig_path" {
@@ -56,10 +56,10 @@ output "iam_role_name_workers" {
 
 output "instance_profile_name" {
   description = "Name of the instance profile created for the worker nodes"
-  value       = join("", aws_iam_instance_profile.workers.*.name)
+  value       = join("", aws_iam_instance_profile.workers[*].name)
 }
 
 output "eks_cluster_oidc_url" {
   description = "The OIDC url for the EKS Cluster"
-  value       = aws_eks_cluster.this.identity.0.oidc.0.issuer
+  value       = aws_eks_cluster.this.identity[0].oidc[0].issuer
 }

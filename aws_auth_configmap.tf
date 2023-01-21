@@ -28,12 +28,12 @@ resource "kubernetes_config_map" "auth_config" {
 
   data = {
     mapRoles = <<ROLES
-- rolearn: ${join("", aws_iam_role.workers.*.arn)}
+- rolearn: ${join("", aws_iam_role.workers[*].arn)}
   username: system:node:{{EC2PrivateDNSName}}
   groups:
     - system:bootstrappers
     - system:nodes
-- rolearn: ${join("", aws_iam_role.cluster_admin.*.arn)}
+- rolearn: ${join("", aws_iam_role.cluster_admin[*].arn)}
   username: ${var.global_cluster_admin_role}
   groups:
     - system:masters

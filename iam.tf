@@ -88,27 +88,27 @@ resource "aws_iam_role" "workers" {
 
 resource "aws_iam_role_policy_attachment" "eks_workers_AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = join("", aws_iam_role.workers.*.name)
+  role       = join("", aws_iam_role.workers[*].name)
 }
 
 resource "aws_iam_role_policy_attachment" "eks_workers_AmazonEKS_CNI_Policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = join("", aws_iam_role.workers.*.name)
+  role       = join("", aws_iam_role.workers[*].name)
 }
 
 resource "aws_iam_role_policy_attachment" "eks_workers_AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = join("", aws_iam_role.workers.*.name)
+  role       = join("", aws_iam_role.workers[*].name)
 }
 
 resource "aws_iam_role_policy_attachment" "eks_workers_AmazonCWAgentServerPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
-  role       = join("", aws_iam_role.workers.*.name)
+  role       = join("", aws_iam_role.workers[*].name)
 }
 
 resource "aws_iam_instance_profile" "workers" {
   name = "eks-workers-${var.name}"
-  role = join("", aws_iam_role.workers.*.name)
+  role = join("", aws_iam_role.workers[*].name)
 }
 
 // Workers autoscaling
