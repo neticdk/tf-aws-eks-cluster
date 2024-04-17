@@ -24,7 +24,7 @@ data "template_file" "kubeconfig" {
 }
 
 resource "local_file" "kubeconfig" {
-  content  = join("", data.template_file.kubeconfig[*].rendered)
+  content  = local.kubeconfig
   filename = local.kubeconfig_filename
 
   depends_on = [aws_eks_cluster.this]

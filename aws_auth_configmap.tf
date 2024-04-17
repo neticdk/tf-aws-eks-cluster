@@ -9,17 +9,6 @@ provider "kubernetes" {
   config_path = local_file.kubeconfig.filename
 }
 
-data "template_file" "map_roles" {
-  count    = var.map_roles_count
-  template = file("${path.module}/templates/config_map_aws_map_roles.yaml.tpl")
-
-  vars = {
-    role_arn = var.map_roles[count.index]["role_arn"]
-    username = var.map_roles[count.index]["username"]
-    group    = lookup(var.map_roles[count.index], "group", "system:authenticated")
-  }
-}
-
 resource "kubernetes_config_map" "auth_config" {
   metadata {
     name      = "aws-auth"
