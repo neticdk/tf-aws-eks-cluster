@@ -36,7 +36,7 @@ output "eks_cluster_version" {
 
 output "kubeconfig" {
   description = "`kubeconfig` configuration to connect to the cluster using `kubectl`."
-  value       = join("", data.template_file.kubeconfig[*].rendered)
+  value       = local.kubeconfig
 }
 
 output "kubeconfig_path" {
