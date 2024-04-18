@@ -13,7 +13,7 @@ locals {
   })
   kubeconfig = templatefile("${path.module}/templates/kubeconfig.tpl",
   {
-    server                     = join("", aws_eks_cluster.this[*].endpoint)
+    server                     = aws_eks_cluster.this.endpoint
     certificate_authority_data = aws_eks_cluster.this.certificate_authority[0].data
     cluster_name               = var.name
     aws_role = format(
