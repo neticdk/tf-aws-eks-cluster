@@ -11,6 +11,5 @@ terraform {
     aws = ">= 3.0"
     kubernetes = ">= 2.0"
     local = ">= 2.0"
-    template = ">= 2.0"
   }
 }
