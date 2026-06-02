@@ -1,4 +1,6 @@
-- rolearn: ${role_arn}
-  username: ${username}
+%{ for r in map_roles ~}
+- rolearn: ${r.role_arn}
+  username: ${r.username}
   groups:
-    - ${group}
+    - ${lookup(r, "group", "system:authenticated")}
+%{ endfor ~}
