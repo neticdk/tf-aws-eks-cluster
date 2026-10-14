@@ -2,23 +2,23 @@
 
 ## Supported Terraform Versions
 
-Terraform 0.12
+Terraform >= 1.15, AWS provider ~> 6.0
 
 ## Usage
 
 ```hcl
 module "vpc" {
-  source = "github.com/neticdk/tf-aws-vpc"
+  source = "github.com/neticdk/tf-aws-vpc?ref=v2.0.0"
   [...]
 }
 
 module "eks_workers" {
-  source = "github.com/neticdk/tf-aws-eks-workers"
+  source = "github.com/neticdk/tf-aws-eks-workers?ref=v2.0.0"
   [...]
 }
 
 module "eks_cluster" {
-  source = "github.com/neticdk/tf-aws-eks-cluster"
+  source = "github.com/neticdk/tf-aws-eks-cluster?ref=v2.0.0"
 
   name            = var.eks_cluster_name
   cluster_version = var.eks_cluster_version
@@ -52,22 +52,22 @@ module "eks_cluster" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| allowed\_cidr\_blocks | List of CIDR blocks allowed to connect to the cluster | list | `<list>` | no |
-| allowed\_security\_groups | List of additoinal security group ids allowed to connect to the cluster | list | `<list>` | no |
-| allowed\_security\_groups\_count | Count of allowed security groups | string | `"0"` | no |
+| allowed\_cidr\_blocks | List of CIDR blocks allowed to connect to the cluster | list(string) | `<list>` | no |
+| allowed\_security\_groups | List of additoinal security group ids allowed to connect to the cluster | list(string) | `<list>` | no |
+| allowed\_security\_groups\_count | Count of allowed security groups | number | `"0"` | no |
 | aws\_profile\_name | AWS Profile Name to use when calling kubectl | string | `"futadmin"` | no |
 | aws\_role\_name | AWS Role Name to use when calling kubectl | string | `"eks-global-cluster-admin"` | no |
 | cluster\_admin\_account\_id | Account ID of account that needs to be trusted for assuming the cluster admin role | string | n/a | yes |
 | cluster\_version | Cluster Version | string | `""` | no |
 | global\_cluster\_admin\_group | Name of IAM group that will be allowed to assume the global cluster admin role | string | `"EKSGlobalClusterAdmins"` | no |
 | global\_cluster\_admin\_role | Name of IAM role that will be added to the system:masters group | string | `"eks-global-cluster-admin"` | no |
-| map\_roles | Additional IAM roles to add to the aws-auth configmap. See examples/eks_test_fixture/variables.tf for example format. | list | `<list>` | no |
-| map\_roles\_count | The count of roles in the map_roles list. | string | `"0"` | no |
+| map\_roles | Additional IAM roles to add to the aws-auth configmap. See examples/eks_test_fixture/variables.tf for example format. | list(any) | `<list>` | no |
+| map\_roles\_count | The count of roles in the map_roles list. | number | `"0"` | no |
 | name | EKS Cluster Name | string | n/a | yes |
 | subnets | List of subnets to launch the cluster in | list(string) | n/a | yes |
-| tags | A map of tags to add to all resources | map | `<map>` | no |
+| tags | A map of tags to add to all resources | map(string) | `<map>` | no |
 | vpc\_id | VPC ID | string | n/a | yes |
-| workers\_security\_group\_count | Number of security group ids | string | n/a | yes |
+| workers\_security\_group\_count | Number of security group ids | number | n/a | yes |
 | workers\_security\_group\_ids | List of worker security group ids allowed to connect to the cluster | list(string) | n/a | yes |
 
 ## Outputs
